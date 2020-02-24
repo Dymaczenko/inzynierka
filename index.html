@@ -1,94 +1,101 @@
 <!DOCTYPE HTML>
 <html lang="pl-PL">
 <head>
-    <meta charset="UTF-8" />
+	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	
 	<title>UR Farma Fotowoltaiczna UR</title>
 	
-	<script async src ="http://cdn.zingchart.com/zingchart.min.js"></script>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="zegartest.js"></script>
-	<script type="text/javascript" src="slider.js"></script>
-	<script type="text/javascript" src="wykres/gaug.js"></script>
+	<script src="RGraph/libraries/RGraph.common.core.js"></script>
+	<script src="RGraph/libraries/RGraph.common.dynamic.js"></script>
+	<script src="RGraph/libraries/RGraph.meter.js"></script>
 	
-	
-	<link rel="stylesheet" href="styletest.css" type="text/css" />
+	<link rel="stylesheet" href="styles/styletest.css" type="text/css" />
 	<link rel="stylesheet" href="fontello/css/fontello.css" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Josefin+Slab|Lato&display=swap&subset=latin-ext" rel="stylesheet">
 	
 	
-   <meta name="description" content="Wizualizacja graficzna danych pomiarowych z farmy fotowoltaicznej Uniwersytetu Rolniczego w Krakowie na Wydziale Inzynierii Produkcji i Energetyki" />
+	<meta name="description" content="Wizualizacja graficzna danych pomiarowych z farmy fotowoltaicznej Uniwersytetu Rolniczego w Krakowie na Wydziale Inzynierii Produkcji i Energetyki" />
 	<meta name="keywords" content="Wizualizacja, graficzna, dane, pomiarowe, Wydział, Inzynierii, Produkcji, Energetyki, WIPIE, farma, fotowoltaiczna, fotowoltaika, UR, Uniwersytet Rolniczy, Uniwersytet, Rolniczy, praca, inzynierska, praca inzynierska, inzynierka, html, php, css, javascript, pomiar, słonca, słonce, dymek, oliwer, oliwer dymek, modernizacja, modernizacja wizualizacji, wizualizacja danych, wykresy kołowe, wykres, wykresy, Katedra Inzynierii Produkcji, Logistyki i Informatyki Stosowanej, Katedra, Inzynierii, Produkcji, Inzynierii Produkcji, Logistyki, Informatyki, Stosowanej, Informatyki Stosowanej" />
- 
-		
+
+
 </head>
 
-<body onload="odliczanie(); zmienslajd();">
-  
- <div id="container">
-   <div class="sticky">
-    <h1>Katedra Inzynierii Produkcji, Logistyki i Informatyki Stosowanej</h1>
-   </div>
-	<div style="clear: both;"></div>
-	
-	<div id="slider"></div>
-	
-	<div id="nav">
-<br />
-     <br />Natezenie promieniowania Słonecznego [W/m2] 
-	 <div id="es"></div>
-	 
-	 <br/><br/>
-	 <br />Temperatura zewnetrzna [C]
-	 <div id="tempZew"></div>
-	 <div id="zegarek"></div>
+<body>
+
+	<div id="container">
+		<div class="sticky">
+			<h1>Katedra Inżynierii Produkcji, Logistyki i Informatyki Stosowanej</h1>
+		</div>
+		<div id="slider"></div>
+		<div id="time">
+			Czas: <b><span id="clock"></span></b> 
+			Temperatura zewnętrzna: <b><span id="tempZewVal"></span></b>°C
+		</div>
+		<div class="flex-container">
+			<div class="chart">
+				<canvas height="250" id="es"></canvas>
+				<span class="title" id="esVal"></span> [W/m²]
+			</div>
+
+			<div class="chart">
+				<canvas height="250" id="mocCX"></canvas>
+				<span class="title" id="mocCXVal"></span> [W]
+			</div>
+
+			<div class="chart">
+				<canvas height="250" id="sumaMocMono"></canvas>
+				<span class="title" id="sumaMocMonoVal"></span> [W]
+			</div>
+
+			<div class="chart">
+				<canvas height="250" id="sumaMocCX"></canvas>
+				<span class="title" id="sumaMocCXVal"></span> [W]
+			</div>
+
+			<div class="chart">
+				<canvas height="250" id="sumaMocPoli"></canvas>
+				<span class="title" id="sumaMocPoliVal"></span> [W]
+			</div>
+
+			<div class="chart">
+				<canvas width="500" height="250" id="sumaMocWyj"></canvas>
+				<span class="title" id="sumaMocWyjVal"></span> [W]
+			</div>
+
+		</div>
+		<div id="footer">
+			<div id="fontello">
+				<div class="UR">
+					<a href="https://wipie.urk.edu.pl/" target="_blank">
+						<i class="icon-graduation-cap"></i>
+					</a>
+				</div>
+
+				<div class="fb">
+					<a href="https://www.facebook.com/WipieUR/" target="_blank">
+						<i class="icon-facebook-rect"></i>
+					</a>
+				</div>
+
+				<div class="database">
+					<a href="http://149.156.38.46/" target="_blank">
+						<i class="icon-database-1"></i>
+					</a>
+				</div>
+
+			</div>
+			<div style="clear:both"></div>
+
+			<div id="stopka">
+				<h3>Wszelkie prawa zastrzeżone &copy</h3> 
+			</div>
+		</div>
 
 	</div>
-	
-  <div class="content">
-  	
-       <div id="n1">MONO zainstalowano 1,5 kWp</div>
-	    <div id="n2">MONO zainstalowano 4,2 kWp</div>
-		<div id="n3">CIGS zainstalowano 4,4 kWp</div>
-		<div id="n4">POLI zainstalowano 4,27 kWp</div>
-	 
-		  <div style="clear:both"></div>
-  
-  </div>
-  
-  <div id="footer">
-  
-<div id="fontello">
-  
- <div class="UR">
-   <a href="https://wipie.urk.edu.pl/" target="_blank">
-  <i class="icon-graduation-cap"></i>
-  </a>
-  </div>
- 
-<div class="fb">
-   <a href="https://www.facebook.com/WipieUR/" target="_blank">
-  <i class="icon-facebook-rect"></i>
-   </a>
-  </div>
-  
- <div class="database">
-   <a href="http://149.156.38.46/" target="_blank">
-  <i class="icon-database-1"></i>
-   </a>
-  </div>
-  
-  </div>
-<div style="clear:both"></div>
-	  
-    <div id="stopka"><h3>Wszelkie prawa zastrzezone &copy </h3> </div>
-  </div>
-
-</div>
-
- <script type="text/javascript" src="zegartest.js"></script>
- <script type="text/javascript" src="wykres/gaug.js"></script>
- 
+	<script type="text/javascript" src="scripts/utils.js"></script>
+	<script type="text/javascript" src="scripts/clock.js"></script>
+	<script type="text/javascript" src="scripts/slider.js"></script>
 </body>
 </html>
